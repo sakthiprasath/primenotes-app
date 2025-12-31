@@ -1,7 +1,7 @@
 .wrapper {
     margin-top: 5px;
     height: calc(100% - 36px);
-    background-color: #ffff;
+    background-color: #f9f7fe;
     width: 100%;
     padding-left: 2px;
     padding-right: 10px;
@@ -74,6 +74,8 @@ input[type="text"] {
     padding-top: 20px;
     background: rgb(249 246 255 / 90%);
     cursor: text;
+    font-family: monospace;
+    margin-left: 10%;
 }
 
 .seperator {

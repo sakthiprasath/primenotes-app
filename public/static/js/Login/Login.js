@@ -16,9 +16,9 @@ class FireBase {
                     console.log("email verified : ", email_verified);
                     
                     sessionStorage.setItem('primenotes-user-data', JSON.stringify(userData));
-                window.location.href = "../";
+                // window.location.href = "../";
             } else {
-                debugger
+                
                 // window.location.href = "login.html";
             }
         });
@@ -51,7 +51,7 @@ class FireBase {
                 //firebase.auth.PhoneAuthProvider.PROVIDER_ID
             ],
             // Terms of service url.
-            tosUrl: '../',
+            tosUrl: '../index.html',
 
         };
 

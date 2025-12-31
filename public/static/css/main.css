@@ -175,7 +175,9 @@
             width: 315px;
             height: 100%;
         }
-        
+        .common-icon.arrow{
+            font-size: 20px !important;
+        }
         #sidenav-button-id1 {
             display: block;
         }
@@ -230,6 +232,7 @@
             color: #26162d;
             font-weight: 600;
             background: rgb(249 246 255 / 90%);
+            box-shadow: 2px 1px 4px rgb(0 0 1 / 14%);
         }
         
         .middle-section-bg-color {
@@ -431,7 +434,7 @@ box-shadow:10 2 2 2;
             width: 250px;
             border-radius: 1px;
             padding-left: 0px;
-            font-size: 17px;
+            font-size: 14px;
             font-weight: 800;
             color: rgb(80, 137, 198);
             letter-spacing: 0.5px;
@@ -471,7 +474,7 @@ box-shadow:10 2 2 2;
         
         .individual-search-background {
             font-weight: bold;
-            color: white !important;
+            color: #f8f6fe !important;
             border-left: 6px solid #5089c6 !important;
         }
         
@@ -480,7 +483,7 @@ box-shadow:10 2 2 2;
         }
         
         .individual-search-background .individual-search-level-1>.search-result-item {
-            color: #5089c6;
+            color: #0b0d0f;
         }
         
         .individual-search-background .individual-search-result-metadata>.individual-search-file-content {
@@ -495,7 +498,8 @@ box-shadow:10 2 2 2;
         
         .individual-search-level-1>span .star.icon {
             display: block;
-            font-size: 11px !important;
+            font-size: 8px !important;
+            color: #b9aecf;
         }
         
         .individual-search-level-1 {
@@ -508,7 +512,7 @@ box-shadow:10 2 2 2;
             font-size: 11px;
             font-weight: 400;
             min-height: 20px;
-            max-height: 50px;
+            max-height: 20px;
             text-align: left;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -521,9 +525,13 @@ box-shadow:10 2 2 2;
         }
         
         .individual-search-file-content-span {
-            background: #8c4ed0;
+            background: #cfd4a6;
             color: white;
             font-size: 15px;
+            border-radius: 5px;
+            padding-left: 7px;
+            color: #3c3cd6;
+            padding-right: 7px;
         }
         
         .video-notes-help {
@@ -933,12 +941,12 @@ box-shadow:10 2 2 2;
         }
         
         .ui.horizontal.label {
-            font-size: 1.09rem;
+            font-size: 12px;
             font-family: Roboto;
-            font-weight: 700;
-            background: rgb(160 199 239);   
+            font-weight: 200;
+            background: rgb(239 238 243);
             border-radius: 1px;
-            color: white;
+            color: #b3a7cc;
             border-radius: 20px;
         }
         
@@ -1161,12 +1169,12 @@ box-shadow:10 2 2 2;
         #file-name {
             width: max-content;
             position: absolute;
-            background: white;
             z-index: 5;
             margin-left: 25px;
             margin-top: 7px;
             font-weight: 720;
             color: #4f89c6;
+            font-variant-caps: all-small-caps;
         }
         .file-name-for-video-notes{
             margin-left: 55px !important;
@@ -1432,7 +1440,7 @@ box-shadow:10 2 2 2;
             z-index: 5;
             left: 350px;
             top: 1px;
-            background: white;
+            background: #f8f6fe;
         }
         
         .file-factory-split-bar:hover {
@@ -1574,14 +1582,20 @@ box-shadow:10 2 2 2;
             padding-top: 7px;
             height: 30px;
         }
-        
+        .input-box-with-box-shadow{
+            width: 50%;
+            box-shadow: 0px 0px 10px -4px rgb(13 0 7 / 86%);
+            height: 29px;
+            top: 0px;
+        }
         .icon {
             cursor: pointer;
         }
         
         .common-icon {
-            color: #5089c6;
+            color: #396697;
             padding-left: 5px;
+            font-size: 11px !important;
         }
         #chat-file-icon-section{
             display: flex;

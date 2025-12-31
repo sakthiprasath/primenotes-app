@@ -20,7 +20,7 @@ export default class NotificationBar{
                     </div>`;
         $("#notification").html(html);
     }
-    launch_notification(meta='', header='', description=''){
+    launch_notification(meta='', header='', description='', show_seconds=2500){
         let self = this;
         if(header != '')
             self.header.text(header);
@@ -28,12 +28,14 @@ export default class NotificationBar{
             self.meta.text(meta);
 
         if(description != '')
-            self.meta.text(description);
+            self.description.html(description);
         $('#notification').show();
 
-        setTimeout(function(){
-                $('#notification').hide();
-        }, 2500);
+        if(show_seconds != "INFINITY"){
+            setTimeout(function(){
+                    $('#notification').hide();
+            }, show_seconds);
+        }
     }
     events(){
         let self = this;

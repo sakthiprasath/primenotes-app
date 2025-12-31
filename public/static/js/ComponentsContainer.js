@@ -10,7 +10,7 @@ export default class loadComponentsContainer {
         self.close_youtube_text = $('.youtube-video-link-close');
         self.youtube_txt_box = $('#youtube-video-link');
         /*local constants */
-        self.left_and_middle_section = "315px";
+        self.left_and_middle_section = 315;
         // self.editor = $('#quick-file-editor'); //$($('.note-editable')[0]);
 
     }
@@ -127,7 +127,7 @@ export default class loadComponentsContainer {
         if (classList.indexOf('right-side-components-full-screen') >= 0) {
             $("#right-side-components").removeClass('right-side-components-full-screen');
             $("#right-side-components").addClass('right-side-components-split-screen');
-            $('.file-factory-split-bar').css('left', self.left_and_middle_section);
+            $('.file-factory-split-bar').css('left', self.left_and_middle_section - 7);
             $('#left-and-middle-section').css('width', self.left_and_middle_section);
             $('#left-and-middle-section').show();
             $('.sidenav-button-content-class')[0].classList.remove('right');
@@ -237,12 +237,12 @@ export default class loadComponentsContainer {
 
     _video_switch_action_function() {
         let self = this;
-        if (self.tsp.GlobalConstants.previous_window != 3) {
-            self.tsp.GlobalConstants.previous_window = 3;
-        } else {
-            self.split_and_full_screen_UI();
-        }
-        $('.individual-search').get(0).click();
+        // if (self.tsp.GlobalConstants.previous_window != 3) {
+        //     self.tsp.GlobalConstants.previous_window = 3;
+        // } else {
+        //     self.split_and_full_screen_UI();
+        // }
+        // $('.individual-search').get(0).click();
         $('.video-stream-back-to-file-list').show();
         $('.quick-notes-top-section').hide();
         //                $('#components-search-container').css({'top':'35px',
@@ -252,15 +252,15 @@ export default class loadComponentsContainer {
 
         $('#pane').css({ 'display': 'block' });
         $('#right-side-section').show();
-        let component_factory_icon_elems = $('.component-factory-left-icons');
-        let len = component_factory_icon_elems.length;
-        for (let i = 0; i < len; i++) {
-            let class_list = $(component_factory_icon_elems[i]).attr('class').split(' ');
-            if (class_list.indexOf('active') >= 0) {
-                $(component_factory_icon_elems[i]).removeClass('active');
-                break;
-            }
-        }
+        // let component_factory_icon_elems = $('.component-factory-left-icons');
+        // let len = component_factory_icon_elems.length;
+        // for (let i = 0; i < len; i++) {
+        //     let class_list = $(component_factory_icon_elems[i]).attr('class').split(' ');
+        //     if (class_list.indexOf('active') >= 0) {
+        //         $(component_factory_icon_elems[i]).removeClass('active');
+        //         break;
+        //     }
+        // }
 
         self.active_switch = "video-stream-switch";
 
@@ -491,12 +491,11 @@ export default class loadComponentsContainer {
                     let local_self = this;
                    $('.filter-search-icon').on('click', (ele)=>{
                         let m1 = {};
-                        let tags = new Set();
                         let label_map = local_self.label_map;
                         let sorted_tags_names = []
                 
                         for(var file_metadata_map in label_map){
-                            sorted_tags_names.push(label_map[file_metadata_map].name)
+                            sorted_tags_names.push(label_map[file_metadata_map].name.toLocaleLowerCase())
                         }
 
                         sorted_tags_names.sort()
@@ -687,9 +686,11 @@ export default class loadComponentsContainer {
             if (q2 < screenLeft || q2 > screenLeft + pane_width)
                 return;
             left_part.css('width', q2 - screenLeft);
+            console.log("left part width : ",  q2 - screenLeft);
             right_part.css('width', q1 + 40);
             right_part.css('left', q2 - screenLeft + 3);
-            bar.css('left', q2 - screenLeft);
+            bar.css('left', q2 - screenLeft - 8);
+            console.log("bar left : ", q2 - screenLeft - 8);
         });
 
         document.addEventListener('mouseup', () => {
@@ -706,11 +707,37 @@ export default class loadComponentsContainer {
 
     _initialize_youtube_stream() {
         let self = this;
-        $('#stream-youtube-video').on('click', function() {
+        function check_if_the_url_is_a_pdf(url){
+            let PDF = ".pdf"
+            let index_of_pdf_str = url.lastIndexOf(PDF)
+            
+            if ( (url.length - index_of_pdf_str) == PDF.length)
+                return true;
+            
+            return false;
+        }
+        $('#youtube-video-link').on('keydown', function(event){
+            if(event.which !== 13 && event.which !==1 && event.which !==undefined)
+                return;
             let youtube_link = $('#youtube-video-link').val();
             self.__display_youtube_streaming_dialog();
-            //             $(self.dialog_component).css('display', 'block');
-            self.tsp.DomActions._create_component_open_close('youtube', youtube_link);
+            if(check_if_the_url_is_a_pdf(youtube_link)){
+                self.tsp.DomActions._create_component_open_close('pdf', youtube_link);
+            }
+            else{
+                self.tsp.DomActions._create_component_open_close('youtube', youtube_link);
+            }
+        });
+        $('#stream-youtube-video').on('click', function() {
+           
+            let youtube_link = $('#youtube-video-link').val();
+            self.__display_youtube_streaming_dialog();
+            if(check_if_the_url_is_a_pdf(youtube_link)){
+                self.tsp.DomActions._create_component_open_close('pdf', youtube_link);
+            }
+            else{
+                self.tsp.DomActions._create_component_open_close('youtube', youtube_link);
+            }
         });
 
         $('#open-youtube-frame').on('click', function() {
@@ -962,10 +989,10 @@ export default class loadComponentsContainer {
             },
             items: {
                 "rename": {
-                    name: "RENAME"
+                    name: "Rename"
                 },
                 "star": {
-                    name: "STAR"
+                    name: "Star"
                 },
                 "delete": {
                     name: "Delete"

@@ -19,11 +19,15 @@ export default class GlobalConstants {
         self.quick_note_const = "QuickNote";
         self.window_width = window.innerWidth;
         self.window_height = window.innerHeight;
+
+        self.offline_status = "You are currently offline";
+        self.online_status = "You are back online";
+        self.online_status_check_url = "https://upload.wikimedia.org/wikipedia/commons/2/28/Vijay_1996.jpg";
         self.quick_file_welcome_content = `
         File Shortcuts
 
         CTRL + SHIFT + H            Help
-        CTRL + SHIFT + N            Create File
+        CTRL + SHIFT + [+]          Create File
         CTRL + SHIFT + R            Rename File
         CTRL + SHIFT + DELETE       Delete File
         CTRL + SHIFT + F            Mark Favourite

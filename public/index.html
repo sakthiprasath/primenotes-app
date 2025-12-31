@@ -26,6 +26,8 @@
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-auth.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js"></script>
+    
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
     <!-- <script type="text/javascript" src="static/js/lib/jquery-ui/jquery-latest.js"></script>
     <script type="text/javascript" src="static/js/lib/jquery-ui/jquery-ui-latest.js"></script>
@@ -214,7 +216,7 @@
                                         <div class="ui icon input">
 
 
-                                            <input class="prompt" id="search-box" type="text" placeholder="Search..." autocomplete="off">
+                                            <input class="prompt" id="search-box" type="text" placeholder="Press ESC" autocomplete="off">
 
                                             <div class="search-box-icons" style="position: absolute;display: grid;grid-template-columns: 1fr 1fr;top: 3px;right: 1px;">
                                                 <i class="ui icon close quick-note-search-clear"></i>
@@ -291,8 +293,8 @@
                         <div id='right-side-components' class="right-side-components-split-screen all-ele-class-for-background">
                             <div id='right-side-components-container'>
                                 <div id="right-side-section">
-                                    <div class="ui action input">
-                                        <input id="youtube-video-link" value="https://youtu.be/k-8aMne610c" type="text" placeholder="youtube url...">
+                                    <div class="input-box-with-box-shadow ui action input">
+                                        <input id="youtube-video-link" value="https://youtu.be/k-8aMne610c" type="text" placeholder="youtube/pdf url...">
                                         <i class="ui icon close youtube-video-link-close" style="
                                                 display: none;
                                                 position: absolute;
@@ -1027,9 +1029,9 @@
 
 </body>
 
-<!-- <script type="module" src="static/js/main_1.js"></script> -->
+<script type="module" src="static/js/main_1.js"></script>
 
-<script type="module" src="./dist/primenotes.js">
-</script>
+<!-- <script type="module" src="./dist/primenotes.js">
+ </script>   -->
 
 </html>

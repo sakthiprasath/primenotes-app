@@ -4,7 +4,7 @@
         "indexes": "firestore.indexes.json"
     },
     "hosting": {
-        "site": "testing-primenotes",
+        "site": "primenotes-17aa2",
         "public": "public",
         "ignore": [
             "firebase.json",

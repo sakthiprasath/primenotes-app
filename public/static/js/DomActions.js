@@ -590,10 +590,10 @@ export default class DomActions {
         });
 
     }
-    _get_iframe_ele(compo_name, youtube_link) {
+    _get_iframe_ele(link) {
         let iframe_ele = "";
-        iframe_ele = "<iframe src='http://localhost:5000/api/individual-component-fetch/create_component?component_name=" + compo_name + "' style='width: inherit;height: inherit;'></iframe>";
-        return $(iframe_ele).css({ 'width': '100%', 'height': '95%' });
+        iframe_ele = `<iframe src='${link}' style='width: inherit;height: inherit;'></iframe>`;
+        return $(iframe_ele).css({ 'width': '97%', 'height': '90%' });
     }
 
 
@@ -628,11 +628,12 @@ export default class DomActions {
 
 
     }
-    _create_component_open_close(event_obj, curr_ele) {
+    _create_component_open_close(event_obj, link) {
+        let self = this;
 
         if (event_obj == 'youtube') {
             $('#create-component-dialog-sub-div').empty();
-            let iframe_ele = this.__get_youtube_embed_iframe(curr_ele);
+            let iframe_ele = this.__get_youtube_embed_iframe(link);
             // $('#middle-section').show();
             // $('#quick-notes-in-file-factory').hide();
             //                  $('#right-side-components').css({'left':'35px','width':'calc(100% - 35px)','height':'100%','display':'block'})
@@ -647,18 +648,24 @@ export default class DomActions {
             $('#video-stream-in-file-factory').append($(iframe_ele));
 
         } else {
-            let compo_name = $(curr_ele).attr('title');
-            let self = event_obj;
-            /*checking if the current to-generate component is already present as active element*/
-            if (self.active_component_dialog_element !== compo_name) {
-                //                let ele = this._build_new_component(compo_name);
-                //                $('#destination-container').append($(ele));
-                $('#create-component-dialog-sub-div').empty();
-                let iframe_ele = this._get_iframe_ele(compo_name);
-                $('#create-component-dialog-sub-div').append(iframe_ele);
-                $('#ui-id-2').text(compo_name);
-                self.active_component_dialog_element = compo_name;
-            }
+            $('#create-component-dialog-sub-div').empty();
+            let iframe_ele = self._get_iframe_ele(link);
+            $('#video-stream-in-file-factory').empty();
+            $('#video-stream-in-file-factory').append($(iframe_ele));
+            
+            
+            // let compo_name = $(curr_ele).attr('title');
+            // let self = event_obj;
+
+            // /*checking if the current to-generate component is already present as active element*/
+            // if (self.active_component_dialog_element !== compo_name) {
+
+            //     $('#create-component-dialog-sub-div').empty();
+            //     let iframe_ele = self.._get_iframe_ele(compo_name);
+            //     $('#create-component-dialog-sub-div').append(iframe_ele);
+            //     $('#ui-id-2').text(compo_name);
+            //     self.active_component_dialog_element = compo_name;
+            // }
         }
     }
     _header_orientation_actions() {

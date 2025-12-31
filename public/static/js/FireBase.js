@@ -1,12 +1,11 @@
-// import firebase from "../../node_modules/firebase/app";
-// import firebase from '../../node_modules/firebase/app';
+// import { user } from "firebase-functions/v1/auth";
 
 export class FireBase {
     login() {
         let self = this;
 
         var uiConfig = {
-            signInSuccessUrl: 'CompanyProRecover.html',
+            // signInSuccessUrl: 'CompanyProRecover.html',
             signInOptions: [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -17,7 +16,6 @@ export class FireBase {
                 //firebase.auth.PhoneAuthProvider.PROVIDER_ID
             ],
             // Terms of service url.
-            tosUrl: 'CompanyProRecover.html',
             callBack: () => {
                 return false;
             }
@@ -27,28 +25,92 @@ export class FireBase {
         return ui.start('#firebaseui-auth-container', uiConfig);
 
     }
+    get_send_verification_html(){
+        let self = this;
+        let send_verification_html = `<div id="send-verification-html" class="send-verification-html"> 
+                                        <div> 
+                                            Your email is not verified yet. 
+                                            please verify to confirm that this email is yours 
+                                        </div> 
+                                        <div> 
+                                            <button id="send-verification-email-after-login" class="ui button primary dialog-button" data-value="create" style="">send verification mail</button> 
+                                        </div> 
+                                    </div>
+                                    <style>
+                                        .send-verification-html{
+                                            display: flex;
+                                            flex-direction: column;
+                                            row-gap: 11px;
+                                            font-weight: 700;
+                                            padding: 10px;
+                                        }
+                                        .verification-email-sent{
+                                            display: flex;
+                                            flex-direction: row;
+                                            column-gap: 15px;
+                                        }
+                                    </style>`;
+
+        // launch_notification(meta='', header='', description='', show_seconds=2500);
+        
+        setTimeout(function(){
+            self.tsp.NotificationBar.launch_notification(null, null, send_verification_html,
+                "INFINITY"
+                );
+            $("#send-verification-email-after-login").click(()=>{
+                self.send_verfication();
+            });
+        }, 3000);
+    }
+    show_verification_email_sent(){
+        let html = `<i class="check icon"></i>
+                    <span>Verification Email sent. Please visit your mail inbox</span>`;
+        $('#send-verification-html').empty().attr('class', 'verification-email-sent').html(html);
+        
+    }
+    send_verfication(){
+        let self = this;
+        let auth = this.firebase.auth();
+        var actionCodeSettings = {
+            url: 'https://primenotes-17aa2.firebaseapp.com/templates/login-2.html',
+            handleCodeInApp: false
+          };
+        auth.currentUser.sendEmailVerification(actionCodeSettings).then(() => {
+            console.log("verification email sent");
+            self.show_verification_email_sent();
+            
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
+    }
     on_auth_state_change() {
         let self = this;
         let str_const = 'primenotes-user-data';
         let def = $.Deferred();
-        let user_data = sessionStorage.getItem(str_const);
+        let user_data_json = sessionStorage.getItem(str_const);
+        self.user_data = JSON.parse(user_data_json)
+
         // firebase.auth().onAuthStateChanged(function(user) {
-        if (user_data != null && user_data != "null") {
-            self.user_data = JSON.parse(user_data);
-            // console.log(user_data);
+        if (self.user_data != null && self.user_data != "null") {
+            
             $('#user-name-section').attr('data-tooltip', "Hey " +
                 self.user_data.displayName + " click to Logout");
             
             $($('#user-name-section').children().get(0)).attr('src', self.user_data.photoURL);
-            return def.resolve();
+           
 
+            if(!self.user_data.emailVerified){
+                self.get_send_verification_html();
+            }
+            return def.resolve();
         } else {
             // self.login().then(() => {
             //     let uid = self.firebase.auth().getUid();
             //     sessionStorage.setItem('primenotes-uid', uid);
             //     return def.resolve();
             // });
-            window.location.href = "templates/login.html";
+            window.location.href = "templates/login-2.html";
         }
         // });
         return def.promise();
@@ -58,7 +120,7 @@ export class FireBase {
         firebase.auth().signOut().then(function() {
             // console.log('success');
             sessionStorage.clear();
-            window.location.replace("templates/login.html");
+            window.location.replace("templates/login-2.html");
 
         }, function() {})
     }
@@ -68,16 +130,10 @@ export class FireBase {
         this.tsp = tsp;
         let def = $.Deferred();
         this.user_data = {};
-        // self.tsp.GlobalConstants.firebase_config = $('#firebase-config').val();
+        
         self.firebase_config = self.tsp.GlobalConstants.firebase_config;
-        // $('#firebase-config').empty();
         firebase.initializeApp(tsp.GlobalConstants.firebase_config);
-        // const firestore = firebase.firestore();
-        // const settings = {
-        //     timestampsInSnapshots: true,
-        // };
-        // firestore.settings(settings);
-
+        
         this.firebase = firebase;
 
         this.on_auth_state_change().then(() => {

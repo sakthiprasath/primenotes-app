@@ -188,6 +188,7 @@
     font-weight: 500;
     display: grid;
     grid-template-rows: 2fr 2.5fr;
+    border-radius: 12px;
 }
 
 .top-header-icons {
@@ -200,5 +201,6 @@
 }
 
 .top-header-highlighter {
-    border-left: 2px solid #5089c6;
+    border-left: 0px solid #5089c6;
+    background: #d8e1eb;
 }
